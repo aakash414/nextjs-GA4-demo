@@ -1,7 +1,9 @@
 import type { ReactElement, ReactNode } from "react";
 import { Analytics } from '@vercel/analytics/react';
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_MEASUREMENT_ID;
 
 
+import Script from "next/script";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { AppProps } from "next/app";
@@ -35,6 +37,18 @@ const MyApp = (props: MyAppProps) => {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <title>Modernize NextJs Free Admin template</title>
       </Head>
+      <Script
+  src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+  strategy="afterInteractive"
+/>
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${GA_MEASUREMENT_ID}');
+  `}
+</Script>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
