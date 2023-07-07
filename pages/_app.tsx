@@ -1,4 +1,6 @@
 import type { ReactElement, ReactNode } from "react";
+import { Analytics } from '@vercel/analytics/react';
+
 
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -37,6 +39,8 @@ const MyApp = (props: MyAppProps) => {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         {getLayout(<Component {...pageProps} />)}
+        <Analytics />
+
       </ThemeProvider>
     </CacheProvider>
   );
