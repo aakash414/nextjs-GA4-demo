@@ -3,12 +3,34 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import theme, { roboto } from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
+import Script from 'next/script';
+
+// Importing the Google Analytics Measurement ID from the environment variable
+const gtag = `https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`;
+
 
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en" className={roboto.className}>
         <Head>
+          {/* Google Analytics Measurement ID*/}
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-QN2BDKE9WT"
+          ></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-QN2BDKE9WT');
+              `,
+            }}
+          ></script>
+
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/favicon.ico" />
